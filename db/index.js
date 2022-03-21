@@ -30,5 +30,5 @@ client.query(
 );
 
 module.exports = {
-  query: (text, params) => client.query(text, params),
+  query: (text, params) => pool.query(text, params),
 };
