@@ -41,6 +41,8 @@ paths:
               category: body
               rating: '1.0'
         required: true
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -76,6 +78,8 @@ paths:
               category: body
               rating: '4.2'
         required: true
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -99,6 +103,8 @@ paths:
       summary: Delete Product
       operationId: DeleteProduct
       parameters: []
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -111,6 +117,8 @@ paths:
       summary: Logout
       operationId: Logout
       parameters: []
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -136,7 +144,13 @@ paths:
       responses:
         '200':
           description: ''
-          headers: {}
+          headers:
+            Set-Cookie:
+              description: >
+                Contains the session cookie named `token`.
+                Pass this cookie back in subsequent requests.
+              schema:
+                type: string
       deprecated: false
       security: []
   /auth/register:
@@ -160,7 +174,13 @@ paths:
       responses:
         '200':
           description: ''
-          headers: {}
+          headers:
+            Set-Cookie:
+              description: >
+                Contains the session cookie named `token`.
+                Pass this cookie back in subsequent requests.
+              schema:
+                type: string
       deprecated: false
       security: []
   /users/{id}:
@@ -177,6 +197,8 @@ paths:
       summary: Get User By ID
       operationId: GetUserByID
       parameters: []
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -189,6 +211,8 @@ paths:
       summary: Get All Users
       operationId: GetAllUsers
       parameters: []
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -201,6 +225,8 @@ paths:
       summary: Show Current User
       operationId: ShowCurrentUser
       parameters: []
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -223,6 +249,8 @@ paths:
               user_name: Brian
               email: brian@mail.com
         required: true
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -245,6 +273,8 @@ paths:
               oldPassword: secret
               newPassword: password
         required: true
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -266,6 +296,8 @@ paths:
             example:
               cart_total: 0
         required: true
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -285,6 +317,8 @@ paths:
       summary: Get All Cart Items
       operationId: GetAllCartItems
       parameters: []
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -309,6 +343,8 @@ paths:
               price: 2199
               quantity: 1
         required: true
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -330,6 +366,8 @@ paths:
               product_id: c0992f7c-4289-467a-b995-f19d53375b59
               quantity: 5
         required: true
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -341,12 +379,13 @@ paths:
       summary: Delete Cart Item
       operationId: DeleteCartItem
       parameters: []
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
-
   /cart/{id}/checkout:
     parameters:
       - in: path
@@ -374,6 +413,8 @@ paths:
               email: sarah@email.com
               paid: 'false'
         required: true
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -386,6 +427,8 @@ paths:
       summary: Get All Orders
       operationId: GetAllOrders
       parameters: []
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
@@ -405,12 +448,19 @@ paths:
       summary: Get Single Order
       operationId: GetSingleOrder
       parameters: []
+      security:
+        - cookieAuth: []
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
 components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
   schemas:
     CreateProductRequest:
       title: CreateProductRequest
@@ -637,12 +687,6 @@ components:
         phone: '0215796'
         email: sarah@email.com
         paid: 'false'
-  securitySchemes:
-    httpBearer:
-      type: http
-      scheme: bearer
-security:
-  - httpBearer: []
 tags:
   - name: Products
   - name: Auth
