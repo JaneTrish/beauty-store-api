@@ -51,6 +51,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
 //routes
 app.use('/api/v1/products', productsRouter);
 app.use('/api/v1/auth', authRouter);
