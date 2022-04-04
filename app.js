@@ -13,6 +13,11 @@ const cors = require('cors');
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 
+//Swagger
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
+
 //routers
 const productsRouter = require('./routes/productsRoutes');
 const authRouter = require('./routes/authRoutes');
@@ -42,8 +47,10 @@ app.use(morgan('tiny'));
 app.use(cookieParser(process.env.JWT_SECRET));
 
 app.get('/', (req, res) => {
-  res.send('Beauty-shop api');
+  res.send('<h1>Beauty Store API</h1><a href="/api-docs">Documentation</a>');
 });
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 //routes
 app.use('/api/v1/products', productsRouter);
