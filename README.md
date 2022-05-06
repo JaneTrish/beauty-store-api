@@ -17,7 +17,10 @@ The back-end of the application is build with Node framework **Express.js** and 
 1. User authentication is built with JWT that is stored in a cookie ('jsonwebtoken' npm package https://www.npmjs.com/package/jsonwebtoken). 
 2. Most of the routes check user authentication and authorization.
 3. Users' passwords are hashed and salted with bcryptjs npm package (https://www.npmjs.com/package/bcryptjs).
+4. Connection to database built with node-postgres client (https://www.npmjs.com/package/pg).
 
 ### Future developments of the project
 
-In plans is to add authentication with Google/Facebook/Twitter and then connect backend with front-end. 
+-add authentication with Google/Facebook/Twitter
+-connect to a payment system
+-connect backend with front-end 
