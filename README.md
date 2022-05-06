@@ -21,6 +21,6 @@ The back-end of the application is build with Node framework **Express.js** and 
 
 ### Future developments of the project
 
--add authentication with Google/Facebook/Twitter
--connect to a payment system
--connect backend with front-end 
+-add authentication with Google/Facebook/Twitter   
+-connect to a payment system   
+-connect backend with front-end   
