@@ -10,6 +10,7 @@ const {
   addItemToCart,
   updateCartItem,
   deleteCartItem,
+  deleteCart,
 } = require('../controllers/cartController');
 const placeOrder = require('../controllers/checkoutController');
 
@@ -18,6 +19,10 @@ router.route('/').post(authenticateUser, createCart);
 router
   .route('/:id')
   .get(authenticateUser, getAllCartItems)
+  .delete(authenticateUser, deleteCart);
+
+router
+  .route('/:id/item')
   .post(authenticateUser, addItemToCart)
   .put(authenticateUser, updateCartItem)
   .delete(authenticateUser, deleteCartItem);
