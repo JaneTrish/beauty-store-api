@@ -311,6 +311,20 @@ paths:
           type: string
         required: true
         description: The cart ID
+    delete:
+      tags:
+        - Cart
+      summary: Delete Cart
+      operationId: DeleteCart
+      parameters: []
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+
     get:
       tags:
         - Cart
@@ -324,6 +338,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /cart/{id}/item:
     post:
       tags:
         - Cart
@@ -386,6 +401,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+
   /cart/{id}/checkout:
     parameters:
       - in: path

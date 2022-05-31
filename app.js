@@ -40,7 +40,20 @@ app.use(
 );
 app.use(express.json());
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'Access-Control-Allow-Methods',
+      'Access-Control-Allow-Credentials',
+      'Access-Control-Allow-Origin',
+      'Access-Control-Allow-Headers',
+    ],
+  })
+);
 app.use(xss());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('tiny'));
@@ -51,7 +64,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-
 //routes
 app.use('/api/v1/products', productsRouter);
 app.use('/api/v1/auth', authRouter);
