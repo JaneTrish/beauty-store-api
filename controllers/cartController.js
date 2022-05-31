@@ -7,6 +7,7 @@ const { checkPermissions } = require('../utils');
 //CREATE CART
 const createCart = async (req, res) => {
   const { userId } = req.user;
+  console.log(req.user);
 
   //check if a user already has a cart
   const cart = await db.query('SELECT * FROM cart WHERE user_id = $1', [
@@ -91,6 +92,20 @@ const updateCartItem = async (req, res) => {
   res.status(StatusCodes.OK).json(updatedCartItem.rows[0]);
 };
 
+//DELETE CART
+
+const deleteCart = async (req, res) => {
+  await db.query('DELETE FROM cart WHERE cart_id = $1', [req.params.id]);
+
+  if (!req.params.id) {
+    throw new CustomError.BadRequestError('Please provide cart_id');
+  }
+
+  res
+    .status(StatusCodes.NO_CONTENT)
+    .json({ msg: `No cart with id ${req.params.id}` });
+};
+
 //DELETE ITEM FROM THE CART
 const deleteCartItem = async (req, res) => {
   const { product_id } = req.body;
@@ -119,4 +134,5 @@ module.exports = {
   addItemToCart,
   updateCartItem,
   deleteCartItem,
+  deleteCart,
 };
