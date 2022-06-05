@@ -183,31 +183,10 @@ paths:
                 type: string
       deprecated: false
       security: []
-  /users/{id}:
-    parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        required: true
-        description: The user ID
-    get:
-      tags:
-        - User
-      summary: Get User By ID
-      operationId: GetUserByID
-      parameters: []
-      security:
-        - cookieAuth: []
-      responses:
-        '200':
-          description: ''
-          headers: {}
-      deprecated: false
   /users:
     get:
       tags:
-        - User
+        - Users
       summary: Get All Users
       operationId: GetAllUsers
       parameters: []
@@ -221,9 +200,30 @@ paths:
   /users/showMe:
     get:
       tags:
-        - User
+        - Users
       summary: Show Current User
       operationId: ShowCurrentUser
+      parameters: []
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+        - Users
+      summary: Get User By ID
+      operationId: GetUserByID
       parameters: []
       security:
         - cookieAuth: []
@@ -235,7 +235,7 @@ paths:
   /users/updateUser:
     put:
       tags:
-        - User
+        - Users
       summary: Update User
       operationId: UpdateUser
       parameters: []
@@ -259,7 +259,7 @@ paths:
   /users/updateUserPassword:
     put:
       tags:
-        - User
+        - Users
       summary: Update User Password
       operationId: UpdateUserPassword
       parameters: []
@@ -277,6 +277,20 @@ paths:
         - cookieAuth: []
       responses:
         '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/deleteUser:
+    delete:
+      tags:
+        - Users
+      summary: Delete User
+      operationId: DeleteUser
+      parameters: []
+      security:
+        - cookieAuth: []
+      responses:
+        '204':
           description: ''
           headers: {}
       deprecated: false
@@ -339,6 +353,13 @@ paths:
           headers: {}
       deprecated: false
   /cart/{id}/item:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The cart ID
     post:
       tags:
         - Cart
@@ -706,6 +727,6 @@ components:
 tags:
   - name: Products
   - name: Auth
-  - name: User
+  - name: Users
   - name: Cart
   - name: Orders
