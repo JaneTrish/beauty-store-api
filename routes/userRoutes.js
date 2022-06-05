@@ -10,6 +10,7 @@ const {
   showCurrentUser,
   updateUser,
   updateUserPassword,
+  deleteUser
 } = require('../controllers/userController');
 
 router
@@ -19,6 +20,7 @@ router
 router.route('/showMe').get(authenticateUser, showCurrentUser);
 router.route('/updateUser').put(authenticateUser, updateUser);
 router.route('/updateUserPassword').put(authenticateUser, updateUserPassword);
+router.route('/deleteUser').delete(authenticateUser, deleteUser);
 
 router.route('/:id').get(authenticateUser, getSingleUser);
 
