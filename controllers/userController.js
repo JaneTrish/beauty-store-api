@@ -94,10 +94,30 @@ const updateUserPassword = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'Success! Password updated' });
 };
 
+//DELETE USER
+const deleteUser = async (req, res) => {
+  const { userId } = req.user;
+  console.log(req.userId);
+  const userToDelete = await db.query('SELECT * FROM users WHERE id = $1', [
+    userId,
+  ]);
+
+  if (userToDelete.rowCount < 1) {
+    throw new CustomError.NotFoundError(`No user with id ${userId}`);
+  }
+
+  await db.query('DELETE FROM cart WHERE user_id = $1', [userId]);
+  await db.query('DELETE FROM orders WHERE user_id = $1', [userId]);
+  await db.query('DELETE FROM users WHERE id = $1', [userId]);
+
+  res.status(StatusCodes.NO_CONTENT).send(`User deleted`);
+};
+
 module.exports = {
   getAllUsers,
   getSingleUser,
   showCurrentUser,
   updateUser,
   updateUserPassword,
+  deleteUser
 };
