@@ -415,6 +415,15 @@ paths:
       summary: Delete Cart Item
       operationId: DeleteCartItem
       parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCartItemRequest'
+            example:
+              product_id: c0992f7c-4289-467a-b995-f19d53375b59
+        required: true
       security:
         - cookieAuth: []
       responses:
