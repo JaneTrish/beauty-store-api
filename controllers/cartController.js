@@ -2,7 +2,6 @@ const db = require('../db');
 const { v4 } = require('uuid');
 const CustomError = require('../errors');
 const { StatusCodes } = require('http-status-codes');
-const { checkPermissions } = require('../utils');
 
 //CREATE CART
 const createCart = async (req, res) => {
@@ -95,6 +94,7 @@ const updateCartItem = async (req, res) => {
 //DELETE CART
 
 const deleteCart = async (req, res) => {
+  await db.query('DELETE FROM cart_items WHERE cart_id = $1', [req.params.id]);
   await db.query('DELETE FROM cart WHERE cart_id = $1', [req.params.id]);
 
   if (!req.params.id) {
