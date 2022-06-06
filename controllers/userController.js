@@ -42,6 +42,7 @@ const showCurrentUser = async (req, res) => {
 
 //UPDATE USER
 const updateUser = async (req, res) => {
+  console.log(req.user, req.body);
   const { user_name, email } = req.body;
   if (!user_name || !email) {
     throw new CustomError.BadRequestError('Please provide name and email');
@@ -106,10 +107,23 @@ const deleteUser = async (req, res) => {
     throw new CustomError.NotFoundError(`No user with id ${userId}`);
   }
 
+  //find all user's orders
+  const { rows: orders } = await db.query(
+    'SELECT * FROM orders WHERE user_id = $1',
+    [userId]
+  );
+
+  //delete from order_items where order_id refers to user's order
+  if (orders.length > 0) {
+    const orderIds = orders.map((order) => order.id);
+    orderIds.forEach(async (item) => {
+      await db.query('DELETE FROM order_items WHERE order_id = $1', [item]);
+    });
+  }
+
   await db.query('DELETE FROM cart WHERE user_id = $1', [userId]);
   await db.query('DELETE FROM orders WHERE user_id = $1', [userId]);
   await db.query('DELETE FROM users WHERE id = $1', [userId]);
-
   res.status(StatusCodes.NO_CONTENT).send(`User deleted`);
 };
 
@@ -119,5 +133,5 @@ module.exports = {
   showCurrentUser,
   updateUser,
   updateUserPassword,
-  deleteUser
+  deleteUser,
 };
