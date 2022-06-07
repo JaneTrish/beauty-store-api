@@ -19,8 +19,4 @@ The back-end of the application is build with Node framework **Express.js** and 
 3. Users' passwords are hashed and salted with bcryptjs npm package (https://www.npmjs.com/package/bcryptjs).
 4. Connection to database built with node-postgres client (https://www.npmjs.com/package/pg).
 
-### Future developments of the project
 
--add authentication with Google/Facebook/Twitter   
--connect to a payment system   
--connect backend with front-end   
